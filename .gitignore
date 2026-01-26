@@ -1,0 +1,30 @@
+# --- Terraform Recursive Matches ---
+# Ignores .terraform folders in any subdirectory
+**/.terraform/*
+
+# Ignores state files and backups anywhere they appear
+**/*.tfstate
+**/*.tfstate.backup
+
+# --- Sensitive Variable Files ---
+# Ignore all .tfvars (except the example one)
+**/*.tfvars
+!**/*.tfvars.example
+
+# --- Script & Credential Secrets ---
+# Ignore the OpenStack source script (contains passwords/tokens)
+**/admin-openrc.sh
+
+# Ignore any other bash scripts that might contain keys
+# **/scripts/*.sh
+# Ignore JSON key files
+**/*.json
+
+# --- Log files ---
+*.log
+**/*.log
+
+# --- My Private folders ---
+# local work and testing
+test/
+my-infrastructure/

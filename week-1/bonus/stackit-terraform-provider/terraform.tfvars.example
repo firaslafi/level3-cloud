@@ -1,0 +1,5 @@
+project_id    = ""
+network_id    = ""
+instance_name = ""
+machine_type = ""
+ssh_key_name  = ""
