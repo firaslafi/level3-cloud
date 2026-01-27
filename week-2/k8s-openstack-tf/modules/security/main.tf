@@ -23,3 +23,10 @@ resource "openstack_networking_secgroup_rule_v2" "k8s_api" {
   security_group_id = openstack_networking_secgroup_v2.k8s_sg.id
 }
 
+# Allow ICMP (ping)
+resource "openstack_networking_secgroup_rule_v2" "icmp" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "icmp"
+  security_group_id = openstack_networking_secgroup_v2.k8s_sg.id
+}

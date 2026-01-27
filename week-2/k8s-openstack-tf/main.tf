@@ -21,3 +21,8 @@ module "compute" {
   worker_flavor      = var.worker_flavor
   keypair            = var.keypair
 }
+
+output "master_fip" {
+  description = "The floating IP address of the master node."
+  value       = module.network.master_fip
+}

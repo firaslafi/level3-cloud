@@ -38,8 +38,3 @@ variable "private_subnet_cidr" {
   type        = string
   description = "The CIDR for the private subnet"
 }
-
-variable "master_port_id" {
-  description = "The port ID for the master instance."
-  type        = string
-}
