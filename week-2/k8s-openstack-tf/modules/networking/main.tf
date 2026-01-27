@@ -4,16 +4,32 @@ resource "openstack_networking_network_v2" "k8s_net" {
 
 resource "openstack_networking_subnet_v2" "k8s_subnet" {
   network_id = openstack_networking_network_v2.k8s_net.id
-  cidr       = "192.168.10.0/24"
+  cidr       = var.private_subnet_cidr
   ip_version = 4
 }
 
 resource "openstack_networking_router_v2" "k8s_router" {
   name                = "k8s-router"
-  external_network_id = var.external_net_id
+  external_network_id = var.external_network_id
 }
 
 resource "openstack_networking_router_interface_v2" "k8s_interface" {
   router_id = openstack_networking_router_v2.k8s_router.id
   subnet_id = openstack_networking_subnet_v2.k8s_subnet.id
+}
+
+resource "openstack_networking_port_v2" "master_port" {
+  name         = "k8s-master-port"
+  network_id   = openstack_networking_network_v2.k8s_net.id
+  admin_state_up = "true"
+}
+
+resource "openstack_networking_floatingip_v2" "master_fip" {
+  pool = var.external_network_name
+}
+
+resource "openstack_networking_floatingip_associate_v2" "master_fip" {
+  floating_ip = openstack_networking_floatingip_v2.master_fip.address
+  port_id     = openstack_networking_port_v2.master_port.id
+  depends_on = [openstack_networking_router_interface_v2.k8s_interface]
 }

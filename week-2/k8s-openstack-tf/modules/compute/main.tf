@@ -7,7 +7,7 @@ resource "openstack_compute_instance_v2" "master" {
   user_data       = file("${path.module}/../../scripts/install_k8s.sh")
 
   network {
-    uuid = var.network_id
+    port = var.master_port_id
   }
 }
 
@@ -24,3 +24,4 @@ resource "openstack_compute_instance_v2" "worker" {
     uuid = var.network_id
   }
 }
+

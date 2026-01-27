@@ -33,3 +33,12 @@ variable "worker_count" {
     type        = number
     default     = 2
 }
+
+variable "master_fip_address" {
+  description = "The floating IP address to associate with the master instance."
+  type        = string
+}
+variable "master_port_id" {
+  description = "The port ID for the master instance."
+  type        = string
+}

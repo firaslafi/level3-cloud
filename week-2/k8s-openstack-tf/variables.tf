@@ -28,3 +28,18 @@ variable "external_network_id" {
   type        = string
   description = "The UUID of the external/public network"
 }
+variable "external_network_name" {
+  description = "The name of the external/public network"
+  type        = string
+}
+
+variable "private_subnet_cidr" {
+  default = "172.16.10.0/24"
+  type        = string
+  description = "The CIDR for the private subnet"
+}
+
+variable "master_port_id" {
+  description = "The port ID for the master instance."
+  type        = string
+}
