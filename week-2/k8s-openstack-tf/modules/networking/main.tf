@@ -22,6 +22,9 @@ resource "openstack_networking_port_v2" "master_port" {
   name         = "k8s-master-port"
   network_id   = openstack_networking_network_v2.k8s_net.id
   admin_state_up = "true"
+  fixed_ip {
+    subnet_id = openstack_networking_subnet_v2.k8s_subnet.id
+  }
 }
 
 resource "openstack_networking_floatingip_v2" "master_fip" {
