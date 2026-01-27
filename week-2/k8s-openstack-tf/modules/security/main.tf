@@ -1,9 +1,20 @@
 resource "openstack_networking_secgroup_v2" "k8s_sg" {
-  name = "k8s-security-group"
+  name        = "k8s-security-group"
+  description = "Allow K8s traffic"
 }
 
-# Rule for API Server
-resource "openstack_networking_secgroup_rule_v2" "api_rule" {
+# Allow SSH (Port 22) so you can log in
+resource "openstack_networking_secgroup_rule_v2" "ssh" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = 22
+  port_range_max    = 22
+  security_group_id = openstack_networking_secgroup_v2.k8s_sg.id
+}
+
+# Allow K8s API (Port 6443)
+resource "openstack_networking_secgroup_rule_v2" "k8s_api" {
   direction         = "ingress"
   ethertype         = "IPv4"
   protocol          = "tcp"
@@ -11,4 +22,4 @@ resource "openstack_networking_secgroup_rule_v2" "api_rule" {
   port_range_max    = 6443
   security_group_id = openstack_networking_secgroup_v2.k8s_sg.id
 }
-# (Add more rules for etcd and Kubelet here)
+

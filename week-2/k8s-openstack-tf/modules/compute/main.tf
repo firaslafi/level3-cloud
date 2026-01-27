@@ -4,7 +4,7 @@ resource "openstack_compute_instance_v2" "master" {
   flavor_name     = var.master_flavor
   key_pair        = var.keypair
   security_groups = [var.secgroup_name]
-  user_data       = file("scripts/install_k8s.sh")
+  user_data       = file("${path.module}/../../scripts/install_k8s.sh")
 
   network {
     uuid = var.network_id
@@ -18,7 +18,7 @@ resource "openstack_compute_instance_v2" "worker" {
   flavor_name     = var.worker_flavor
   key_pair        = var.keypair
   security_groups = [var.secgroup_name]
-  user_data       = file("scripts/install_k8s.sh")
+  user_data       = file("${path.module}/../../scripts/install_k8s.sh")
 
   network {
     uuid = var.network_id
