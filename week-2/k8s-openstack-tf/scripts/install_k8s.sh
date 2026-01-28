@@ -16,10 +16,12 @@ done
 mkdir -p /etc/needrestart/conf.d
 echo '$nrconf{restart} = "a";' | tee /etc/needrestart/conf.d/99-k8s-automation.conf
 
+# Force APT to use IPv4 to avoid potential issues/delay with IPv6 networks
+echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4
 
 # 1. Update and install basic dependencies
 apt-get update
-apt-get install -y apt-transport-https ca-certificates curl gpg conntrack
+apt-get install -y apt-transport-https ca-certificates curl gpg conntrack haveged
 
 # 2. Disable Swap (Kubernetes will not start if swap is on)
 swapoff -a
