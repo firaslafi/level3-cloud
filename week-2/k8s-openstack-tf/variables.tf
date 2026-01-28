@@ -38,3 +38,8 @@ variable "private_subnet_cidr" {
   type        = string
   description = "The CIDR for the private subnet"
 }
+
+# variable "k8s_sg_id" {
+#   type = string
+#   description = "The ID of the security group created for K8s cluster"
+# }

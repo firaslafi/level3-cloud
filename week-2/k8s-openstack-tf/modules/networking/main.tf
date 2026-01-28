@@ -23,6 +23,9 @@ resource "openstack_networking_port_v2" "master_port" {
   name         = "k8s-master-port"
   network_id   = openstack_networking_network_v2.k8s_net.id
   admin_state_up = "true"
+
+  security_group_ids = [var.k8s_sg_id]
+
   fixed_ip {
     subnet_id = openstack_networking_subnet_v2.k8s_subnet.id
   }

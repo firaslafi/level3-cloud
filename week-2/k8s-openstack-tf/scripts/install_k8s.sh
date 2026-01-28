@@ -1,8 +1,25 @@
 #!/bin/bash
 
+# Redirect all output to a log file and console
+exec > >(tee /var/log/k8s-install.log|logger -t user-data -s 2>/dev/console) 2>&1
+
+
+# Wait for internet connectivity
+until ping -c 1 google.com; do
+  echo "Waiting for internet connectivity..."
+  sleep 5
+done
+
+# Prevent needrestart from prompting during package installations
+# export DEBIAN_FRONTEND=noninteractive
+# echo 'needrestart $nrconf{restart} = "a";' >> /etc/needrestart/needrestart.conf
+mkdir -p /etc/needrestart/conf.d
+echo '$nrconf{restart} = "a";' | tee /etc/needrestart/conf.d/99-k8s-automation.conf
+
+
 # 1. Update and install basic dependencies
 apt-get update
-apt-get install -y apt-transport-https ca-certificates curl gpg
+apt-get install -y apt-transport-https ca-certificates curl gpg conntrack
 
 # 2. Disable Swap (Kubernetes will not start if swap is on)
 swapoff -a

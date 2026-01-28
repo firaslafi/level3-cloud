@@ -42,3 +42,7 @@ variable "master_port_id" {
   description = "The port ID for the master instance."
   type        = string
 }
+variable "k8s_sg_id" {
+  type        = string
+  description = "The ID of the security group for K8s cluster"
+}

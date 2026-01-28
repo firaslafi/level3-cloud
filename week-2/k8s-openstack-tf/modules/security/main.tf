@@ -30,3 +30,13 @@ resource "openstack_networking_secgroup_rule_v2" "icmp" {
   protocol          = "icmp"
   security_group_id = openstack_networking_secgroup_v2.k8s_sg.id
 }
+
+# Allow Flannel VXLAN traffic (UDP port 8472)
+resource "openstack_networking_secgroup_rule_v2" "flannel_vxlan" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "udp"
+  port_range_min    = 8472
+  port_range_max    = 8472
+  security_group_id = openstack_networking_secgroup_v2.k8s_sg.id
+}
