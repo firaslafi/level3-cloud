@@ -1,0 +1,10 @@
+# terraform.tfvars
+image                = "Ubuntu 24.04 Server"
+master_flavor        = "m1.medium"
+worker_flavor        = "m1.small"
+keypair              = "m1.small"
+worker_count         = 2
+
+external_network_id   = "xxxx"
+external_network_name = "xxxx"
+private_subnet_cidr   = "172.16.10.0/24"
