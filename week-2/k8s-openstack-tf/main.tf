@@ -10,6 +10,11 @@ module "security" {
   source = "./modules/security"
 }
 
+resource "openstack_compute_keypair_v2" "my_key" {
+  name       = "no-use"
+  public_key = file(pathexpand("~/.ssh/no-use.pub"))
+}
+
 module "compute" {
   source             = "./modules/compute"
   network_id         = module.network.network_id
